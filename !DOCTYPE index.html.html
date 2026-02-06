@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>????</title>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    body {
+        background: linear-gradient(135deg, #ffd6e8, #fff0f6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    h1 {
+        color: #ff4d6d;
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 14px 24px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    #yes {
+        background: #ff4d6d;
+        color: white;
+        transition: transform 0.3s ease;
+    }
+
+    #no {
+        background: #ddd;
+        color: #999;
+        pointer-events: none;
+    }
+
+    img {
+        max-width: 90%;
+        max-height: 50%;
+        margin-top: 20px;
+    }
+
+    .heart, .puppy {
+        position: fixed;
+        top: -50px;
+        z-index: 1;
+        animation: fall linear forwards;
+    }
+
+    .heart {
+        font-size: 24px;
+        animation-duration: 4s;
+    }
+
+    .puppy {
+        width: 50px;
+        height: 50px;
+        animation-duration: 5s;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<div id="card">
+    <h1>Hejjj Tosia, zostaniesz moją walentynką???💗💗</h1>
+    <div>
+        <button id="yes">TAK 💝</button>
+        <button id="no">NIE 🙃</button>
+        <img src="przytulas.webp">
+    </div>
+</div>
+
+<script>
+let scale = 1;
+let finished = false;
+const yesBtn = document.getElementById("yes");
+const card = document.getElementById("card");
+
+// powiększanie przy kliknięciu
+document.body.addEventListener("click", () => {
+    if (finished) return;
+
+    scale += 0.25;
+    yesBtn.style.transform = `scale(${scale})`;
+
+    if (scale >= 3) {
+        finished = true;
+        showFinal();
+        startHearts();
+        startPuppies();
+    }
+});
+
+// końcowy ekran
+function showFinal() {
+    card.innerHTML = `
+        <h1>TAAAAAAKKK JEEEEEEEST 💝💝</h1>
+        <img src="boston terrier.jpg" alt="Boston Terrier z sercem">
+    `;
+}
+
+// lecące serduszka
+function startHearts() {
+    for (let i = 0; i < 35; i++) {
+        setTimeout(createHeart, i * 120);
+    }
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (20 + Math.random() * 30) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+
+// lecące pieski
+function startPuppies() {
+    for (let i = 0; i < 15; i++) {
+        setTimeout(createPuppy, i * 300);
+    }
+}
+
+function createPuppy() {
+    const puppy = document.createElement("img");
+    puppy.src = "boston terrier.jpg"; // mini Boston Terrier z sercem
+    puppy.className = "puppy";
+    puppy.style.left = Math.random() * (window.innerWidth - 50) + "px";
+    puppy.style.width = 40 + Math.random() * 30 + "px";
+    document.body.appendChild(puppy);
+    setTimeout(() => puppy.remove(), 5000);
+}
+</script>
+
+</body>
+</html>
+
